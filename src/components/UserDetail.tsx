@@ -7,10 +7,10 @@ import LoadingSpinner from './LoadingSpinner';
 const UserDetail = () => {
   const { id } = useParams<{ id: string }>();
   const userId = parseInt(id || '0');
-  
+
   const { data: apiUser, isLoading, error } = useUser(userId);
   const newUsers = useAppSelector((state) => state.users.newUsers);
-  
+
   // Check if this is a new user from Redux
   const newUser = newUsers.find(user => user.id === userId);
   const user = apiUser || newUser;
@@ -45,7 +45,7 @@ const UserDetail = () => {
           </div>
           <div>
             <h1 className="text-3xl font-bold text-gray-800">{user.name}</h1>
-            {!isNewUser && (
+            {!isNewUser && 'username' in user && (
               <p className="text-gray-600">@{user.username}</p>
             )}
           </div>
@@ -55,7 +55,7 @@ const UserDetail = () => {
           {/* Contact Information */}
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Contact Information</h2>
-            
+
             <div className="flex items-center gap-3">
               <Mail className="text-gray-500" size={20} />
               <div>
@@ -64,7 +64,7 @@ const UserDetail = () => {
               </div>
             </div>
 
-            {!isNewUser && user.phone && (
+            {!isNewUser && 'phone' in user && user.phone && (
               <div className="flex items-center gap-3">
                 <Phone className="text-gray-500" size={20} />
                 <div>
@@ -74,7 +74,7 @@ const UserDetail = () => {
               </div>
             )}
 
-            {!isNewUser && user.website && (
+            {!isNewUser && 'website' in user && user.website && (
               <div className="flex items-center gap-3">
                 <Globe className="text-gray-500" size={20} />
                 <div>
@@ -95,7 +95,7 @@ const UserDetail = () => {
           {/* Company & Address */}
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Company & Location</h2>
-            
+
             <div className="flex items-center gap-3">
               <Building className="text-gray-500" size={20} />
               <div>
@@ -109,7 +109,7 @@ const UserDetail = () => {
               </div>
             </div>
 
-            {!isNewUser && user.address && user.address.city && (
+            {!isNewUser && 'address' in user && user.address && user.address.city && (
               <div className="flex items-start gap-3">
                 <MapPin className="text-gray-500 mt-1" size={20} />
                 <div>
