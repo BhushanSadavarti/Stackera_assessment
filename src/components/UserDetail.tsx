@@ -7,16 +7,21 @@ import LoadingSpinner from './LoadingSpinner';
 const UserDetail = () => {
   const { id } = useParams<{ id: string }>();
   const userId = parseInt(id || '0');
+  // console.log(userId,"userid")
 
   const { data: apiUser, isLoading, error } = useUser(userId);
   const newUsers = useAppSelector((state) => state.users.newUsers);
+  // console.log(newUsers, "newuser")
 
   // Check if this is a new user from Redux
   const newUser = newUsers.find(user => user.id === userId);
+  // console.log(newUser, "newuser")
   const user = apiUser || newUser;
+  // console.log(user, "user");
+  
 
   if (isLoading) return <LoadingSpinner />;
-  if (error || !user) {
+ if ((error && !newUser) || (!apiUser && !newUser)) {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center text-red-500">
@@ -27,6 +32,7 @@ const UserDetail = () => {
   }
 
   const isNewUser = !!newUser;
+  console.log(isNewUser, "isnewuser")
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -124,13 +130,7 @@ const UserDetail = () => {
           </div>
         </div>
 
-        {isNewUser && (
-          <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800 text-sm">
-              ✨ This is a newly added user stored locally
-            </p>
-          </div>
-        )}
+       
       </div>
     </div>
   );

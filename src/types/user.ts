@@ -28,6 +28,8 @@ export interface User {
 
 export interface NewUser {
   id: number;
+  fname: string,
+  mname: string,
   name: string;
   email: string;
   company: string;
@@ -35,6 +37,8 @@ export interface NewUser {
 
 export interface CreateUserForm {
   name: string;
+  fname: string,
+  mname: string,
   email: string;
   company: string;
 }

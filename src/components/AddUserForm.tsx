@@ -9,6 +9,8 @@ import type { CreateUserForm } from '../types/user';
 
 const userSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
+  fname: z.string().min(2, 'Name must be at least 2 characters'),
+  mname: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   company: z.string().min(2, 'Company name must be at least 2 characters'),
 });
@@ -63,6 +65,40 @@ const AddUserForm = () => {
                 errors.name ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="Enter full name"
+            />
+            {errors.name && (
+              <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="fname" className="block text-sm font-medium text-gray-700 mb-2">
+              Father's Name *
+            </label>
+            <input
+              type="text"
+              id="fname"
+              {...register('fname')}
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.name ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="Enter Father's name"
+            />
+            {errors.name && (
+              <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="mname" className="block text-sm font-medium text-gray-700 mb-2">
+              Mother's Name 
+            </label>
+            <input
+              type="text"
+              id="mname"
+              {...register('mname')}
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.name ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="Enter Mother's name"
             />
             {errors.name && (
               <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
